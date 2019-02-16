@@ -214,22 +214,26 @@ ChangesStream.prototype._readData = function (data) {
   debug('data event fired from the underlying _changes response');
   this.attempt = null;
 
-  var decodedData = this._decoder.write(data);
-  this._buffer += decodedData;
-  if(decodedData.indexOf('\n') === -1) return;
+  var text = this._decoder.write(data);
+  var lines = text.split('\n')
 
-  var lines = this._buffer.split('\n');
-  this._buffer = lines.pop();
+  if (lines.length > 1) {
+    this._buffer += lines.shift()
+    lines.unshift(this._buffer)
+    this._buffer = lines.pop()
 
-  for (var i=0; i<lines.length; i++) {
-    var line = lines[i];
+    for (var i=0; i<lines.length; i++) {
+      var line = lines[i];
 
-    try { line = JSON.parse(line) }
-    catch (ex) { return; }
-    //
-    // Process each change
-    //
-    this._onChange(line);
+      try { line = JSON.parse(line) }
+      catch (ex) { return; }
+      //
+      // Process each change
+      //
+      this._onChange(line);
+    }
+  } else {
+    this._buffer += text
   }
 };
 
