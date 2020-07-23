@@ -4,7 +4,7 @@
   "description": "Simple module that handles getting changes from couchdb",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*-test.js"
+    "test": "exit 1"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,10 @@
   },
   "homepage": "https://github.com/jcrugzz/changes-stream",
   "dependencies": {
-    "back": "~0.1.5",
-    "debug": "~3.1.0",
-    "http-https": "~1.0.0",
-    "readable-stream": "1.0.x"
+    "back": "^1.0.2",
+    "debug": "^4.1.1",
+    "http-https": "1.0.0",
+    "readable-stream": "^3.6.0"
   },
-  "devDependencies": {
-    "tap": "~0.4.8"
-  }
+  "devDependencies": {}
 }
