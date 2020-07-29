@@ -4,7 +4,7 @@ var url = require('url');
 var util = require('util');
 var qs = require('querystring');
 var debug = require('debug')('changes-stream');
-var http = require('http-https');
+var https = require('https');
 var back = require('back');
 
 var extend = util._extend;
@@ -160,7 +160,7 @@ ChangesStream.prototype.request = function () {
   //
   this.timer = setTimeout(this.onTimeout.bind(this), (this.heartbeat || DEFAULT_HEARTBEAT) + 5000)
 
-  this.req = http.request(opts);
+  this.req = https.request(opts);
   this.req.setSocketKeepAlive(true);
   this.req.once('error', this._onError.bind(this));
   this.req.once('response', this._onResponse.bind(this));
